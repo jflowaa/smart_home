@@ -12,7 +12,7 @@ def device(id):
         if action == "remove":
             if database_helper.remove_device_by_id(id):
                 flash("Device Removed!", "success")
-                return render_template(url_for("main.index"))
+                return redirect(url_for("main.index"))
             else:
                 flash("Error! Device was not removed!", "danger")
     context["device"] = database_helper.get_device_by_id(id).__dict__

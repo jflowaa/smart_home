@@ -18,6 +18,7 @@ def create_app(config_name):
     from .device import device as device_blueprint
     app.register_blueprint(main_blueprint)
     app.register_blueprint(device_blueprint, url_prefix="/device")
+    print(app.url_map)
     return app
 
 if __name__ == '__main__':

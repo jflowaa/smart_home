@@ -57,6 +57,8 @@
 						action: "remove",
 						id: e.target.id
 					  }
+			}).done(function() {
+				window.location.href = "{{ url_for('main.index') }}";
 			});
 	});
 	$(".edit").on("click", function (e) {
