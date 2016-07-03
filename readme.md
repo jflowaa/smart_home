@@ -7,11 +7,11 @@ Server is built in Flask and uses an SQLAlchemy database using Python3.
 ##### Server
 Clone the repository
 ```bash
-git clone https://github.com/jflowaa/???.git
+git clone https://github.com/jflowaa/smart_home.git
 ```
 Create a virtual environment. This helps keep the server isolated.
 ```bash
-cd ???/server
+cd smart_home/server
 pyvenv venv
 ```
 Enter the virtual environment and install the packages.
