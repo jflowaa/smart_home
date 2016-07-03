@@ -11,6 +11,17 @@ def index():
     return render_template("index.html")
 
 
+@main.route('/devices', methods=["POST", "GET"])
+def devices():
+    context = {}
+    context["sort_type"] = "all"
+    if request.method == "POST" and request.form.get("sort_type"):
+        context["sort_type"] = request.form.get("sort_type")
+    context["devices"] = database_helper.get_devices(context["sort_type"])
+    context["fa_icon"] = "gear"
+    return render_template("devices.html", **context)
+
+
 @main.route('/adddevice', methods=['POST', 'GET'])
 def add_device():
     context = {}
@@ -52,6 +63,7 @@ def remove_device():
     context["device_type"] = device_type
     context["choose_form"] = choose_form
     context["devices"] = devices
+    context["fa_icon"] = "close"
     return render_template("remove_device.html", **context)
 
 

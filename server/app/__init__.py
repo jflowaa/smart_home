@@ -15,7 +15,9 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
     from .main import main as main_blueprint
+    from .device import device as device_blueprint
     app.register_blueprint(main_blueprint)
+    app.register_blueprint(device_blueprint, url_prefix="/device")
     return app
 
 if __name__ == '__main__':
