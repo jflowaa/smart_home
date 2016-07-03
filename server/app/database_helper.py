@@ -26,6 +26,9 @@ def get_devices(device_type):
     else:
         return get_type_devices(device_type)
 
+def get_device_by_id(id):
+    return db.session.query(Device).get(id)
+
 def get_all_devices():
     return db.session.query(Device).all()
 

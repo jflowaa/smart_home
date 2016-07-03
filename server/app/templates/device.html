@@ -11,7 +11,32 @@
 		</div>
 	</div>
 	 <div class="row">
-	    <p>TODO</p>
+	    <div class=" col-md-4">
+	    	<div class="panel panel-default">
+	    		<div class="panel-heading">
+	    			<i class="fa fa-gear fa-fw"></i> Configuration
+	    		</div>
+	    		<div class="panel-body">
+		    		{% include "includes/device_configuration.html" %}
+	    		</div>
+	    	</div>
+	    </div>
 	</div>
 </div>
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+	$(".edit").on("click", function (e) {
+		$(e.target).removeClass("fa-pencil");
+		$(e.target).addClass("fa-check");
+		$(e.target).parent().attr("id", "editing");
+	});
+	$("document").on("click", "#editing", function (e) {
+		console.log("It happened");
+		$(e.target).removeClass("fa-check");
+		$(e.target).addClass("fa-pencil");
+		$(e.target).parent().attr("id", "");
+	});
+</script>
 {% endblock %}
