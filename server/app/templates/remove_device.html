@@ -18,21 +18,20 @@
 			{{ choose_form.device(class_="form-control")  }}
 		</div>
 		<div class="col-md-4">
-			{% if error %}
-					<p class="error"><strong>Error:</strong> {{ error }}</p>
-			{% endif %}
-			{% if devices %}
-				{% for device in devices %}
-					<div class="alert alert-info">
-						<button type="button" class="btn-danger remove" id="{{ device.id }}">&times;</button>
-						{{ device }}
-					</div>
-				{% endfor %}
-			{% else %}
-				<div class="alert alert-info">
-					<p style="padding: 0.9%;">No devices of this type found</p>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-search fa-fw"></i>Device Listing
 				</div>
-			{% endif %}
+				<div class="panel-body">
+					{% if devices %}
+						{% for device in devices %}
+							{% include "includes/device_item_list.html" %}
+						{% endfor %}						
+					{% else %}
+						{% include "includes/device_item_list.html" %}
+					{% endif %}
+				</div>
+			</div>
 		</div>
 		<div class="col-md-2">
 		</div>
@@ -61,6 +60,8 @@
 
 	$(function() {
 		$(".remove").on("click", function (e) {
+			console.log(e.target);
+			console.log(e.target.id);
 			$.ajax({
 				type: "POST",
 				url: "removedevice",

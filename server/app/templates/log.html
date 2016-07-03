@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Device Logs{% endblock %}
+
+{% block page_content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bell fa-fw"></i> Logs
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                Sort
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li><a href="">All Devices</a>
+                                </li>
+                                <li><a href="">Light Bulbs</a>
+                                </li>
+                                <li><a href="">Motion Sensors</a>
+                                </li>
+                                <li><a href="">Temperature Sensors</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                    	{% for notification in notifications %}
+                        	{% include "forms/{}.html".format(device_type) %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+		</div>
+	<div class="col-md-2">
+	</div>
+	</div>
+</div>
+
+{% endblock %}

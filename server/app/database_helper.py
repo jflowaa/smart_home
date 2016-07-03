@@ -40,6 +40,43 @@ def remove_lightbulb(id):
     db.session.commit()
     return True
 
+def add_motionsensor(data):
+    tag = data.get("tag")
+    ip = data.get("ip")
+    port = data.get("port")
+    exists = db.session.query(MotionSensor.id).filter_by(ip=ip).scalar() is not None
+    if exists:
+        return False
+    else:
+        motionsensor = MotionSensor(tag=tag, ip=ip, port=port)
+        db.session.add(motionsensor)
+        db.session.commit()
+        return True
+
+def remove_motionsensor(id):
+    MotionSensor.query.filter(MotionSensor.id == int(id)).delete()
+    db.session.commit()
+    return True
+
+def add_tempsensor(data):
+    tag = data.get("tag")
+    ip = data.get("ip")
+    port = data.get("port")
+    exists = db.session.query(TempSensor.id).filter_by(ip=ip).scalar() is not None
+    if exists:
+        return False
+    else:
+        tempsensor = TempSensor(tag=tag, ip=ip, port=port)
+        db.session.add(tempsensor)
+        db.session.commit()
+        return True
+
+def remove_tempsensor(id):
+    TempSensor.query.filter(TempSensor.id == int(id)).delete()
+    db.session.commit()
+    return True
+
+
 def get_devices(device_type):
     if device_type == "lightbulb":
         return get_lightbulbs()

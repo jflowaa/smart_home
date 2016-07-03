@@ -1,0 +1,10 @@
+{% if device %}
+	<p class="list-group-item">
+		<button id="{{ device.id }}" class="remove btn-default"><i id="{{ device.id }}" class="fa fa-close fa-fw"></i></button>
+		<span> {{ device }} </span>
+	</p>
+{% else %}
+	<p class="list-group-item">
+		<i class="fa fa-warning fa-fw"></i> No devices found
+	</p>
+{% endif %}

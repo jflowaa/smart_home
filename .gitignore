@@ -1,5 +1,5 @@
 *.pyc
 *.sqlite
-/venv
-/migrations
+*/venv
+*/migrations
 */__pycache__

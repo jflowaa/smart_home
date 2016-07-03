@@ -8,16 +8,16 @@ class ChooseDeviceForm(Form):
 class LightBulbForm(Form):
     tag = StringField('Identifier Name')
     ip = StringField('IP')
-    submit = SubmitField("Add Light Bulb")
+    submit = SubmitField("Add")
 
 class MotionSensorForm(Form):
     tag = StringField('Identifier Name')
     ip = StringField('IP')
     port = IntegerField('Port')
-    submit = SubmitField("Add Motion Sensor")
+    submit = SubmitField("Add")
 
 class TemperatureDeviceForm(Form):
     tag = StringField('Identifier Name')
     ip = StringField('IP')
     port = IntegerField('Port')
-    submit = SubmitField("Add Temperature Device")
+    submit = SubmitField("Add")

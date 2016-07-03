@@ -54,6 +54,14 @@ def remove_device():
     context["devices"] = devices
     return render_template("remove_device.html", **context)
 
+
+@main.route('/log', methods=["GET"])
+def log():
+    context = {}
+    device_type = "all"
+    context["device_type"] = device_type
+    return render_template("log.html", **context)
+
 def validate_form(data):
     """
     I don't like this
@@ -74,6 +82,9 @@ def validate_form(data):
                 return error
 
 def get_forms(device_type):
+    """
+    I don't like this either
+    """
     if device_type == "lightbulb":
         device_form = LightBulbForm()
         choose_form = ChooseDeviceForm(device=device_type)
