@@ -34,7 +34,7 @@
                 <div class="panel-body">
                     <div class="list-group">
                     	{% for notification in notifications %}
-                        	{% include "forms/{}.html".format(device_type) %}
+                        	{% include "includes/notification.html" %}
                         {% endfor %}
                     </div>
                 </div>

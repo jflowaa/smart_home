@@ -1,5 +1,6 @@
 from . import db
-from .models import Device
+from .models import Device, Notifications
+from datetime import datetime
 
 def add_device(data):
     device_type = data.get("device_type")
@@ -11,12 +12,26 @@ def add_device(data):
     device = Device(device_type=device_type, tag=tag, ip=ip, port=port)
     db.session.add(device)
     db.session.commit()
+    time = datetime.now()
+    notification = Notifications(message="New device added!", timestamp=time, device_id=device.id)
+    db.session.add(notification)
+    db.session.commit()
     return True
 
 def remove_device_by_id(id):
     Device.query.filter(Device.id == int(id)).delete()
     db.session.commit()
+    time = datetime.now()
+    notification = Notifications(message="Device removed!", timestamp=time, device_id=None)
+    db.session.add(notification)
+    db.session.commit()
     return True
+
+def get_notifications():
+    return db.session.query(Notifications).order_by(Notifications.id.desc()).all()
+
+def get_last_n_notifications(n):
+    return db.session.query(Notifications).order_by(Notifications.id.desc()).limit(n).all()
 
 def get_devices(device_type):
     if device_type == "all":

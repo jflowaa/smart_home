@@ -1,5 +1,5 @@
 <a href="#" class="list-group-item">
  	<i class="fa fa-comment fa-fw"></i> {{ notification.message }}
-    <span class="pull-right text-muted small"><em>{{ notification.time }}</em>
+    <span class="pull-right text-muted small"><em>{{ notification.timestamp.strftime("%y-%b-%d %I:%M%p") }}</em>
     </span>
 </a> 

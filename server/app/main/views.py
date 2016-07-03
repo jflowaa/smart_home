@@ -8,7 +8,9 @@ from .forms import ChooseDeviceForm, LightBulbForm, TemperatureDeviceForm, Motio
 
 @main.route('/')
 def index():
-    return render_template("index.html")
+    context = {}
+    context["notifications"] = database_helper.get_last_n_notifications(10)
+    return render_template("index.html",**context)
 
 
 @main.route('/devices', methods=["POST", "GET"])
@@ -71,6 +73,7 @@ def log():
     context = {}
     device_type = "all"
     context["device_type"] = device_type
+    context["notifications"] = database_helper.get_notifications()
     return render_template("log.html", **context)
 
 def validate_form(data):
