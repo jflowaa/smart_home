@@ -50,9 +50,8 @@ def remove_device():
     context = {}
     device_type = "lightbulb"
     if request.method == "POST":
-        device_type = request.form.get("device_type")
         id = request.form.get("id")
-        if not database_helper.remove_device(device_type, id):
+        if not database_helper.remove_device_by_id(id):
             flash("Error! Device was not removed!", "danger")
         else:
             flash("Device Removed!", "success")

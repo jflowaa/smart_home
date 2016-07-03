@@ -13,9 +13,7 @@ def add_device(data):
     db.session.commit()
     return True
 
-def remove_device(device_type, id):
-    if not device_type:
-        return False
+def remove_device_by_id(id):
     Device.query.filter(Device.id == int(id)).delete()
     db.session.commit()
     return True

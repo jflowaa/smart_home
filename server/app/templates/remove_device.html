@@ -60,13 +60,10 @@
 
 	$(function() {
 		$(".remove").on("click", function (e) {
-			console.log(e.target);
-			console.log(e.target.id);
 			$.ajax({
 				type: "POST",
 				url: "removedevice",
 				data: {
-						device_type: "{{ device_type }}",
 						id: e.target.id
 					  }
 			}).done(function(msg) {

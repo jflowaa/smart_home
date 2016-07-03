@@ -14,10 +14,32 @@
 	    <div class=" col-md-4">
 	    	<div class="panel panel-default">
 	    		<div class="panel-heading">
-	    			<i class="fa fa-gear fa-fw"></i> Configuration
+	    			<i class="fa fa-wrench fa-fw"></i> Configuration
 	    		</div>
 	    		<div class="panel-body">
 		    		{% include "includes/device_configuration.html" %}
+	    		</div>
+	    	</div>
+	    </div>
+	    <div class=" col-md-4">
+	    	<div class="panel panel-default">
+	    		<div class="panel-heading">
+	    			<i class="fa fa-flash fa-fw"></i> Actions
+	    		</div>
+	    		<div class="panel-body">
+		    		{% include "includes/device_actions.html" %}
+	    		</div>
+	    	</div>
+	    </div>
+	    <div class=" col-md-4">
+	    	<div class="panel panel-default">
+	    		<div class="panel-heading">
+	    			<i class="fa fa-warning fa-fw"></i> Admin
+	    		</div>
+	    		<div class="panel-body">
+		    		 <ul class="list-group">
+						<li class="list-group-item"><p>Remove Device <span class="pull-right"><button id="remove" class="btn btn-danger">&times;</button></span></p></li>
+					</ul>
 	    		</div>
 	    	</div>
 	    </div>
@@ -27,6 +49,16 @@
 {% block scripts %}
 {{ super() }}
 <script type="text/javascript">
+	$("#remove").on("click", function (e) {
+		$.ajax({
+				type: "POST",
+				url: "/device/{{ device.get("id") }}",
+				data: {
+						action: "remove",
+						id: e.target.id
+					  }
+			});
+	});
 	$(".edit").on("click", function (e) {
 		$(e.target).removeClass("fa-pencil");
 		$(e.target).addClass("fa-check");
