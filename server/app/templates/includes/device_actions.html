@@ -1,5 +1,28 @@
-<ul class="list-group">
-	<li class="list-group-item">TODO: dynmaic</li>
-	<li class="list-group-item">Factory pattern?</li>
-	<li class="list-group-item">Model classes that stores list of actions it can do, methods to do those actions. Where the parameter is IP/port</li>
-</ul>
+{% if device_controller %}
+	<ul class="list-group">
+	{% for key, value in device_controller.get_actions().items() %}
+		<li class="list-group-item">{{ key }} <span class="pull-right"><a id="{{ value }}" class="action" href="#">Go</a></span></li>
+		<div id="{{ value }}_modal" class="modal fade" role="dialog">
+		 	<div class="modal-dialog">
+		    	<div class="modal-content">
+		      		<div class="modal-header">
+		       			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        		<h4 class="modal-title">{{ key }}</h4>
+		      		</div>
+		     		<div class="modal-body">
+		     			<form action="/device/{{ device.get('id') }}" class="form-inline" method="get">
+		        			<div class="form-group">
+		        				<input type="hidden" name="action" value="{{ value }}">
+		        				<label for="input">New Value:</label>
+		        				<input type="text" class="form-control" id="input" name="value">
+		        				<input type="submit" class="form-control">
+		        			</div>
+		        		</form>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+	{% endfor %}
+	<li class="list-group-item">Problem. Get Temperature doesn't need a value. Maybe a three value tuple instead of a dictionary. Where third value is what kind of action.</li>
+	</ul>
+{% endif %}

@@ -21,7 +21,7 @@
 			{% if error %}
 					<p class="error"><strong>Error:</strong> {{ error }}</p>
 			{% endif %}
-			{% include "forms/{}.html".format(device_type) %}
+			{% include "forms/{}.html".format(device_type.lower()) %}
 		</div>
 		<div class="col-md-2">
 		</div>

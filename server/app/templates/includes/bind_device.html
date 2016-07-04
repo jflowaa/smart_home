@@ -1,10 +1,25 @@
-{% if device.device_type == "lightbulb" %}
-
+{% if device.device_type == "LightBulb  !" %}
+{% elif device.device_type == "MotionSensor  !" %}
+{% elif device.device_type == "TempSensor  !" %}
+{% else %}
 <ul class="list-group">
+<li class="list-group-item">
+		<a href="#" data-toggle="tooltip" title="placeholder"><i class="fa fa-question fa-fw"></i></a>
+		Device Type
+		<span class="pull-right">dropdown of devices
+		<a href="#">Create</a></span></span>
+	</li>
 	<li class="list-group-item">
 		<a href="#" data-toggle="tooltip" title="Bind motion sensors to the light bulb to tigger light events from motion events"><i class="fa fa-question fa-fw"></i></a>
-		Motion Sensor<span class="pull-right">This is a dropdown</span></li>
+		Motion Sensor
+		<span class="pull-right">tag name of sensor
+		<a href="#">Create</a></span>
+	</li>
+	<li class="list-group-item">
+		<a href="#" data-toggle="tooltip" title="placeholder"><i class="fa fa-question fa-fw"></i></a>
+		Create goes to a modal window with a form
+		<span class="pull-right">
+		<a href="#">Create</a></span>
+	</li>
 </ul>
-
-{% elif device.device_type == "motionsensor" %}
 {% endif %}

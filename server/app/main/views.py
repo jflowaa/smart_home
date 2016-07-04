@@ -39,7 +39,7 @@ def devices():
 @main.route('/adddevice', methods=['POST', 'GET'])
 def add_device():
     context = {}
-    device_type = "lightbulb"
+    device_type = "LightBulb"
     if request.method == "POST":
         form = request.form
         error = validate_form(form)
@@ -62,7 +62,7 @@ def add_device():
 @main.route('/removedevice', methods=['POST', 'GET'])
 def remove_device():
     context = {}
-    device_type = "lightbulb"
+    device_type = "LightBulb"
     if request.method == "POST":
         id = request.form.get("id")
         if not database_helper.remove_device_by_id(id):
@@ -111,13 +111,13 @@ def get_forms(device_type):
     """
     I don't like this either
     """
-    if device_type == "lightbulb":
+    if device_type == "LightBulb":
         device_form = LightBulbForm()
         choose_form = ChooseDeviceForm(device=device_type)
-    if device_type == "tempsensor":
+    if device_type == "TempSensor":
         device_form = TemperatureDeviceForm()
         choose_form = ChooseDeviceForm(device=device_type)
-    if device_type == "motionsensor":
+    if device_type == "MotionSensor":
         device_form = MotionSensorForm()
         choose_form = ChooseDeviceForm(device=device_type)
     return choose_form, device_form

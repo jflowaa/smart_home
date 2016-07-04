@@ -3,7 +3,7 @@ from wtforms import StringField, IntegerField, SubmitField, SelectField
 
 
 class ChooseDeviceForm(Form):
-    device = SelectField("Device", choices=[('lightbulb', 'Light Bulb'), ('tempsensor', 'Temperature Sensor'), ('motionsensor', 'Motion Sensor')])
+    device = SelectField("Device", choices=[('LightBulb', 'Light Bulb'), ('TempSensor', 'Temperature Sensor'), ('MotionSensor', 'Motion Sensor')])
 
 class LightBulbForm(Form):
     tag = StringField('Identifier Name')
