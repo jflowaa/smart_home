@@ -4,12 +4,24 @@ from .. import database_helper
 from .validator import Validator
 from flask import request
 from .forms import ChooseDeviceForm, LightBulbForm, TemperatureDeviceForm, MotionSensorForm
+import pygal
+from pygal.style import LightColorizedStyle
 
 
 @main.route('/')
 def index():
     context = {}
     context["notifications"] = database_helper.get_last_n_notifications(10)
+    chart = pygal.Line(x_title="Time", y_title="Temperature (F)",
+     fill=True, interpolate="cubic", style=LightColorizedStyle, print_values=True,
+      disable_xml_declaration=True)
+    chart.x_labels = ["12:00PM", "12:30PM", "1:00PM", "1:30PM", "2:00PM",
+     "2:30PM", "3:00PM", "3:30PM", "4:00PM", "4:30PM"]
+    tag_name_1_temps = [73, 72, 74, 75, 74, 75, 73, 72, 71, 73]
+    tag_name_2_temps = [83, 82, 84, 85, 84, 85, 83, 82, 81, 83]
+    chart.add("Tag Name 1", tag_name_1_temps)
+    chart.add("Tag Name 2", tag_name_2_temps)
+    context["chart"] = chart
     return render_template("index.html",**context)
 
 
