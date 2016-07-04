@@ -1,0 +1,10 @@
+{% if device.device_type == "lightbulb" %}
+
+<ul class="list-group">
+	<li class="list-group-item">
+		<a href="#" data-toggle="tooltip" title="Bind motion sensors to the light bulb to tigger light events from motion events"><i class="fa fa-question fa-fw"></i></a>
+		Motion Sensor<span class="pull-right">This is a dropdown</span></li>
+</ul>
+
+{% elif device.device_type == "motionsensor" %}
+{% endif %}
