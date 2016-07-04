@@ -1,7 +1,7 @@
 A centralized suite for home automation. 
 
 ### Libraries
-Server is built in Python3 using the Flask web framework and a SQLAlchemy. 
+Server is built in Python3 using the Flask web framework and SQLAlchemy. 
 
 ### Installation
 ##### Server
