@@ -1,7 +1,7 @@
 A centralized suite for home automation. 
 
 ### Libraries
-Server is built in Python3 using the Flask web framework and uses an SQLAlchemy database. 
+Server is built in Python3 using the Flask web framework and a SQLAlchemy. 
 
 ### Installation
 ##### Server
@@ -35,5 +35,5 @@ Server is now running at: http://127.0.0.1:5000/
 - [x] Create notifications on server on add/remove device
 - [ ] Store temperature data in database
 - [ ] Store motion data in database --> notification
-- [ ] Create temperature chart on server dashboard
+- [ ] Create temperature chart on server dashboard with stored temperature data
 - [ ] The TODOs throughout the code
