@@ -24,6 +24,7 @@ def remove_device_by_id(id):
     time = datetime.now()
     notification = Notifications(message="Device removed!", timestamp=time, device_id=None)
     db.session.add(notification)
+    db.session.query(Notifications).filter(Notifications.device_id == id).first().device_id = None
     db.session.commit()
     return True
 
