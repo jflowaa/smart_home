@@ -16,7 +16,7 @@ pyvenv venv
 ```
 Enter the virtual environment and install the packages.
 ```bash
-source venv/bin/active
+source venv/bin/activate
 pip install -r requriments.txt
 ```
 Configure the database and run the server
@@ -36,3 +36,4 @@ Server is now running at: http://127.0.0.1:5000/
 - [ ] Store temperature data in database
 - [ ] Store motion data in database --> notification
 - [ ] Create temperature chart on server dashboard
+- [ ] The TODOs throughout the code
