@@ -1,6 +1,11 @@
 import socketserver
-import requests
+import urllib.request
 import configparser
+import time
+
+
+config = configparser.ConfigParser()
+config.read("config.ini")
 
 
 class ServerHandler(socketserver.BaseRequestHandler):
@@ -16,17 +21,13 @@ class ServerHandler(socketserver.BaseRequestHandler):
         config[data[0]][data[1]] = data[2]
 
 
-
-config = configparser.ConfigParser()
-config.read("config.ini")
-
 def send_motion_event():
     id = config["DEVICE"]["ID"]
     if not id:
         return "Error: ID is not set! Configure at device management page."
     server_ip = config["SERVER"]["ServerIP"]
     server_port = config["SERVER"]["ServerPort"]
-    r = requests.get("http://{}:{}/api/motion/{}".format(server_ip, server_port, id))
+    r = urllib.request.urlopen("http://{}:{}/api/motion/{}".format(server_ip, server_port, id))
     return "yes"
 
 def run_listener():
@@ -37,9 +38,28 @@ def run_listener():
 
 
 def run_detector():
-    return 1
+    model = config["DEVICE"]["Model"]
+    pin = config["DEVICE"]["GPIOPin"]
+    delay = int(config["DEVICE"]["NotifyRate"])
+    if model == "pi":    
+        import RPi.GPIO as io
+        io.setmode(io.BCM)
+        io.setup(int(pin), io.IN)
+        while True:
+            if io.input(pin):
+                send_motion_event()
+                time.sleep(delay * 60)
+            time.sleep(1)
+    elif model == "beaglebone":
+        import Adafruit_BBIO import GPIO
+        GPIO.setup(pin, GPIO.IN)
+        GPIO.add_event_detect(pin, GPIO.RISING)        
+        while True:
+            if GPIO.event_detected(pin):
+                send_motion_event()
+                time.sleep(delay * 60)
+            time.sleep(1)
 
 if __name__ == "__main__":
-    # run_listener()
-    # run_detector()
-    send_motion_event()
+    run_listener()
+    run_detector()
