@@ -34,6 +34,10 @@ def get_notifications():
 def get_last_n_notifications(n):
     return db.session.query(Notifications).order_by(Notifications.id.desc()).limit(n).all()
 
+def get_notifications_for_device(id, n):
+    return db.session.query(Notifications).filter(Notifications.device_id == id)\
+        .order_by(Notifications.id.desc()).limit(n).all()
+
 def get_devices(device_type):
     if device_type == "all":
         return get_all_devices()

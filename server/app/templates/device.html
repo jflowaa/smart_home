@@ -30,23 +30,42 @@
 	    		</div>
 	    	</div>
 	    </div>
-	    <div class=" col-md-4">
-	    	<div class="panel panel-default">
-	    		<div class="panel-heading">
-	    			<i class="fa fa-clipboard fa-fw"></i> Status
-	    		</div>
-	    		<div class="panel-body">
-		    		 <ul class="list-group">
-		    		 	<li class="list-group-item">
-		    		 		ex: Light is on. Temp is 85. ETC
-		    		 	</li>
-		    		 	<li class="list-group-item">
-		    		 		Change this to a notification log instead of status when the device is a motion sensor. "Motion dected at 12:24PM"
-		    		 	</li>
-					</ul>
-	    		</div>
-	    	</div>
-	    </div>
+	    {% if device.get("device_type") == "MotionSensor" %}
+	    	<div class=" col-md-4">
+		    	<div class="panel panel-default">
+		    		<div class="panel-heading">
+		    			<i class="fa fa-bell fa-fw"></i> Notifications
+		    		</div>
+		    		<div class="panel-body">
+			    		 <ul class="list-group">
+			    		 	<li class="list-group-item">			    		 		
+		                    	{% for notification in notifications %}
+		                        	{% include "includes/notification.html" %}
+		                        {% endfor %}
+			    		 	</li>
+						</ul>
+		    		</div>
+		    	</div>
+		    </div>
+	    {% else %}
+		    <div class=" col-md-4">
+		    	<div class="panel panel-default">
+		    		<div class="panel-heading">
+		    			<i class="fa fa-clipboard fa-fw"></i> Status
+		    		</div>
+		    		<div class="panel-body">
+			    		 <ul class="list-group">
+			    		 	<li class="list-group-item">
+			    		 		ex: Light is on. Temp is 85. ETC
+			    		 	</li>
+			    		 	<li class="list-group-item">
+			    		 		Change this to a notification log instead of status when the device is a motion sensor. "Motion dected at 12:24PM"
+			    		 	</li>
+						</ul>
+		    		</div>
+		    	</div>
+		    </div>
+		{% endif %}
 	</div>
 	<div class="row">
 		<div class="col-md-5">

@@ -24,6 +24,8 @@ def device(id):
                     flash("Success!", "success")
                 else:
                     flash("Error: something went wrong!", "danger")
+    if context["device"].get("device_type") == "MotionSensor":
+        context["notifications"] = database_helper.get_notifications_for_device(id, 10)
     return render_template("device.html", **context)
 
 def create_device(device_type):
