@@ -18,7 +18,11 @@ class ServerHandler(socketserver.BaseRequestHandler):
 
     def handle_data(self):
         data = self.data.decode().split(":")
-        config[data[0]][data[1]] = data[2]
+        if data[0] == "CONFIG":
+            with open("test.ini", "w") as writer:
+                writer.write(data[1])
+        else:
+            config[data[0]][data[1]] = data[2]
 
 
 def send_motion_event():
@@ -51,9 +55,9 @@ def run_detector():
                 time.sleep(delay * 60)
             time.sleep(1)
     elif model == "beaglebone":
-        import Adafruit_BBIO import GPIO
+        from Adafruit_BBIO import GPIO
         GPIO.setup(pin, GPIO.IN)
-        GPIO.add_event_detect(pin, GPIO.RISING)        
+        GPIO.add_event_detect(pin, GPIO.RISING)
         while True:
             if GPIO.event_detected(pin):
                 send_motion_event()
@@ -62,4 +66,4 @@ def run_detector():
 
 if __name__ == "__main__":
     run_listener()
-    run_detector()
+    # run_detector()

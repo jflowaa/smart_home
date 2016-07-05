@@ -35,6 +35,7 @@ Server is now running at: http://0.0.0.0:5000/
 - [x] Create notifications on server on add/remove device
 - [ ] Create API for server so devices can send data to server
 - [ ] Store temperature data in database
-- [ ] Store motion data in database --> notification
+- [x] Store motion data in database --> notification
 - [ ] Create temperature chart on server dashboard with stored temperature data
 - [ ] The TODOs throughout the code
+- [ ] Get current config.ini from device and display in the textbox for editing.

@@ -13,7 +13,7 @@
 	    <div class=" col-md-4">
 	    	<div class="panel panel-default">
 	    		<div class="panel-heading">
-	    			<i class="fa fa-wrench fa-fw"></i> Configuration
+	    			<i class="fa fa-wrench fa-fw"></i> Device Infomation
 	    		</div>
 	    		<div class="panel-body">
 		    		{% include "includes/device_configuration.html" %}
@@ -96,7 +96,29 @@
 	    		<div class="panel-body">
 		    		 <ul class="list-group">
 						<li class="list-group-item">
-							<p>Remove Device <span class="pull-right"><button id="remove" class="btn btn-danger">&times;</button></span></p>
+							<p>Remove Device <span class="pull-right"><a id="remove" href="#">Go</a></span</p>
+						</li>
+						<li class="list-group-item">
+							<p>Edit Configuration File <span class="pull-right"><a id="config" href="#">Go</a></span></p>
+							<div id="config-modal" class="modal fade" role="dialog">
+							 	<div class="modal-dialog">
+							    	<div class="modal-content">
+							      		<div class="modal-header">
+							       			<button type="button" class="close" data-dismiss="modal">&times;</button>
+							        		<h4 class="modal-title">Edit Device Configuration</h4>
+							      		</div>
+							     		<div class="modal-body">
+							     			<form id="edit-config-form" action="/device/{{ device.get('id') }}" class="form-group" method="post">
+							        			<div class="form-group">
+							        				<input type="hidden" name="action" value="edit">
+							        				<textarea name="data" form="edit-config-form" class="form-control" rows="25"></textarea>
+							        				<input type="submit" class="form-control" value="Update">
+							        			</div>
+							        		</form>
+							      		</div>
+							    	</div>
+							  	</div>
+							</div>
 						</li>
 					</ul>
 	    		</div>
@@ -119,6 +141,9 @@
 			}).done(function() {
 				window.location.href = "{{ url_for('main.index') }}";
 			});
+	});
+	$("#config").on("click", function (e) {
+		$("#config-modal").modal("show");
 	});
 	$(".action").on("click", function(e) {
 		$("#" + e.target.id + "_modal").modal("show");

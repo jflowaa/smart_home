@@ -1,7 +1,7 @@
 import socket
 
 class MotionSensorController(object):
-    actions = ((True, "Set Server IP", "set_server_ip"),)
+    actions = ()
 
     @staticmethod
     def do_action(action, device, kwargs=None):
@@ -10,11 +10,11 @@ class MotionSensorController(object):
         else:
             return getattr(MotionSensorController, action)(device)
 
-    def set_server_ip(device, server_ip):
+    def edit_device_config(device, config):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((device.get("ip"), device.get("port")))
-            msg = "SERVER:ServerIP:{}".format(server_ip)
+            msg = "CONFIG:{}".format(config)
             sock.send(msg.encode())
             sock.close()
         except:
