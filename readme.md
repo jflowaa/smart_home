@@ -26,13 +26,14 @@ python run.py db migrate
 python run.py db upgrade
 python run.py runserver
 ```
-Server is now running at: http://127.0.0.1:5000/
+Server is now running at: http://0.0.0.0:5000/
 
 ### Todo
 - [x] Add/remove devices to server
 - [ ] Control devices from server
 - [x] Create log database table to store notifications
 - [x] Create notifications on server on add/remove device
+- [ ] Create API for server so devices can send data to server
 - [ ] Store temperature data in database
 - [ ] Store motion data in database --> notification
 - [ ] Create temperature chart on server dashboard with stored temperature data
