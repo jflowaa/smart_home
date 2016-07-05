@@ -1,10 +1,10 @@
 class TempSensorController(object):
-    actions = {"Set Server IP": "set_server_ip",
-               "Get Temperature": "get_temp"}
+    actions = ((True, "Set Server IP", "set_server_ip"),
+               (False, "Get Temperature", "get_temp"))
 
     @staticmethod
-    def do_action(action, kwargs):
-        return getattr(TempSensorController, action)(**kwargs)
+    def do_action(action, device):
+        return getattr(TempSensorController, action)(**device)
 
     def get_temp():
         return "89"

@@ -1,9 +1,9 @@
 class LightBulbController(object):
-    actions = {"Turn On/Off": "turn_on_off"}
+    actions = ((False, "Turn On/Off", "turn_on_off"),)
 
     @staticmethod
-    def do_action(action, kwargs):
-        return getattr(LightBulbController, action)(**kwargs)
+    def do_action(action, device):
+        return getattr(LightBulbController, action)(**device)
 
     def turn_on_off():
         return True
