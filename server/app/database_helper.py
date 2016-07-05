@@ -48,3 +48,10 @@ def get_all_devices():
 
 def get_type_devices(device_type):
     return db.session.query(Device).filter(Device.device_type == device_type).all()
+
+def add_motion_event(id):
+    time = datetime.now()
+    notification = Notifications(message="Motion Detected", timestamp=time, device_id=id)
+    db.session.add(notification)
+    db.session.commit()
+    return True

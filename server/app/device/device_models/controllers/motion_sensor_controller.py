@@ -14,7 +14,8 @@ class MotionSensorController(object):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((device.get("ip"), device.get("port")))
-            sock.send(server_ip.encode())
+            msg = "SERVER:ServerIP:{}".format(server_ip)
+            sock.send(msg.encode())
             sock.close()
         except:
             return False
