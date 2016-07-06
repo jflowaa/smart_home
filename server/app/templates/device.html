@@ -111,7 +111,7 @@
 							     			<form id="edit-config-form" action="/device/{{ device.get('id') }}" class="form-group" method="post">
 							        			<div class="form-group">
 							        				<input type="hidden" name="action" value="edit">
-							        				<textarea name="data" form="edit-config-form" class="form-control" rows="25"></textarea>
+							        				<textarea name="data" form="edit-config-form" class="form-control" rows="25">{{ config }}</textarea>
 							        				<input type="submit" class="form-control" value="Update">
 							        			</div>
 							        		</form>

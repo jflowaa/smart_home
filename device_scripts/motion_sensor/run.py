@@ -19,8 +19,11 @@ class ServerHandler(socketserver.BaseRequestHandler):
     def handle_data(self):
         data = self.data.decode().split(":")
         if data[0] == "CONFIG":
-            with open("test.ini", "w") as writer:
+            with open("config.ini", "w") as writer:
                 writer.write(data[1])
+        elif data[0] == "EDIT":
+            with open("config.ini", "rb") as reader:
+                self.request.sendall(reader.read())
         else:
             config[data[0]][data[1]] = data[2]
 

@@ -10,6 +10,7 @@ def device(id):
     context = {}
     context["device"] = database_helper.get_device_by_id(id).__dict__
     context["device_controller"] = create_device(context["device"].get("device_type"))
+    context["config"] = context["device_controller"].do_action("get_device_config", context["device"])
     if request.method == "POST":
         action = request.form.get("action")
         print(request.form)
@@ -22,6 +23,7 @@ def device(id):
             data = request.form.get("data")
             if context["device_controller"].do_action("edit_device_config", context["device"], data):
                 flash("Updated configuration file sent to device", "success")
+                return redirect(url_for(".device", id=id))
             else:
                 flash("Error! Something went wrong!", "danger")
         else:
