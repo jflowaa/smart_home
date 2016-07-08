@@ -13,7 +13,6 @@ def device(id):
     context["config"] = context["device_controller"].do_action("get_device_config", context["device"])
     if request.method == "POST":
         action = request.form.get("action")
-        print(request.form)
         if action == "remove":
             if database_helper.remove_device_by_id(id):
                 return redirect(url_for("main.index"))
@@ -23,6 +22,15 @@ def device(id):
             data = request.form.get("data")
             if context["device_controller"].do_action("edit_device_config", context["device"], data):
                 flash("Updated configuration file sent to device", "success")
+                return redirect(url_for(".device", id=id))
+            else:
+                flash("Error! Something went wrong!", "danger")
+        elif action == "device_modify":
+            ip = request.form.get("device_ip")
+            port = request.form.get("device_port")
+            tag = request.form.get("device_tag")
+            if database_helper.modify_device_infomation(id, ip, port, tag):
+                flash("Updated device infomation!", "success")
                 return redirect(url_for(".device", id=id))
             else:
                 flash("Error! Something went wrong!", "danger")

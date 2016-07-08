@@ -96,10 +96,10 @@
 	    		<div class="panel-body">
 		    		 <ul class="list-group">
 						<li class="list-group-item">
-							<p>Remove Device <span class="pull-right"><a id="remove" href="#">Go</a></span</p>
+							<p>Remove Device <span class="pull-right"><a id="remove" class="btn btn-default" href="#">Go</a></span</p>
 						</li>
 						<li class="list-group-item">
-							<p>Edit Configuration File <span class="pull-right"><a id="config" href="#">Go</a></span></p>
+							<p>Edit Configuration File <span class="pull-right"><a id="config" class="btn btn-default" href="#">Go</a></span></p>
 							<div id="config-modal" class="modal fade" role="dialog">
 							 	<div class="modal-dialog">
 							    	<div class="modal-content">
@@ -112,7 +112,7 @@
 							        			<div class="form-group">
 							        				<input type="hidden" name="action" value="edit">
 							        				<textarea name="data" form="edit-config-form" class="form-control" rows="25">{{ config }}</textarea>
-							        				<input type="submit" class="form-control" value="Update">
+							        				<input type="submit" class="form-control btn btn-default" value="Update">
 							        			</div>
 							        		</form>
 							      		</div>
@@ -147,17 +147,6 @@
 	});
 	$(".action").on("click", function(e) {
 		$("#" + e.target.id + "_modal").modal("show");
-	});
-	$(".edit").on("click", function (e) {
-		$(e.target).removeClass("fa-pencil");
-		$(e.target).addClass("fa-check");
-		$(e.target).parent().attr("id", "editing");
-	});
-	$("document").on("click", "#editing", function (e) {
-		console.log("It happened");
-		$(e.target).removeClass("fa-check");
-		$(e.target).addClass("fa-pencil");
-		$(e.target).parent().attr("id", "");
 	});
 </script>
 {% endblock %}

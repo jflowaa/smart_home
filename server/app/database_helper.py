@@ -2,6 +2,10 @@ from . import db
 from .models import Device, Notifications
 from datetime import datetime
 
+"""
+TODO: Return errors, currently returns true even if error.
+"""
+
 def add_device(data):
     device_type = data.get("device_type")
     if not device_type:
@@ -52,6 +56,14 @@ def get_all_devices():
 
 def get_type_devices(device_type):
     return db.session.query(Device).filter(Device.device_type == device_type).all()
+
+def modify_device_infomation(id, ip, port, tag):
+    device = db.session.query(Device).filter(Device.id == id).first()
+    device.ip = ip
+    device.port = port
+    device.tag = tag
+    db.session.commit()
+    return True
 
 def add_motion_event(id):
     time = datetime.now()

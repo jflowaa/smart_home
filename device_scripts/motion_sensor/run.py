@@ -22,7 +22,7 @@ class ServerHandler(socketserver.BaseRequestHandler):
             with open("config.ini", "w") as writer:
                 writer.write(data[1])
             config.read("config.ini")
-        elif data[0] == "EDIT":
+        elif data[0] == "GET":
             with open("config.ini", "rb") as reader:
                 self.request.sendall(reader.read())
         else:

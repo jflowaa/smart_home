@@ -14,11 +14,11 @@ class MotionSensorController(object):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((device.get("ip"), device.get("port")))
-            msg = "EDIT:"
+            msg = "GET:"
             sock.send(msg.encode())
             data = sock.recv(1024)
         except:
-            return False
+            return "Unable to connect to device!\nIs the proper script running on the system?"
         return data.decode()
 
     def edit_device_config(device, config):

@@ -1,13 +1,31 @@
 class TempSensorController(object):
-    actions = ((True, "Set Server IP", "set_server_ip"),
-               (False, "Get Temperature", "get_temp"))
+    actions = ((False, "Get Temperature", "get_temp"),)
 
     @staticmethod
-    def do_action(action, device):
-        return getattr(TempSensorController, action)(**device)
+    def do_action(action, device, kwargs=None):
+        if kwargs:
+            return getattr(TempSensorController, action)(device, kwargs)
+        else:
+            return getattr(TempSensorController, action)(device)
 
-    def get_temp():
-        return "89"
+    def get_device_config(device):
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.connect((device.get("ip"), device.get("port")))
+            msg = "GET:"
+            sock.send(msg.encode())
+            data = sock.recv(1024)
+        except:
+            return "Unable to connect to device!\nIs the proper script running on the system?"
+        return data.decode()
 
-    def set_server_ip(ip):
-        return ip
+    def edit_device_config(device, config):
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.connect((device.get("ip"), device.get("port")))
+            msg = "CONFIG:{}".format(config)
+            sock.send(msg.encode())
+            sock.close()
+        except:
+            return False
+        return True
