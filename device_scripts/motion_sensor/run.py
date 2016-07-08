@@ -21,6 +21,7 @@ class ServerHandler(socketserver.BaseRequestHandler):
         if data[0] == "CONFIG":
             with open("config.ini", "w") as writer:
                 writer.write(data[1])
+            config.read("config.ini")
         elif data[0] == "EDIT":
             with open("config.ini", "rb") as reader:
                 self.request.sendall(reader.read())
