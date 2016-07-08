@@ -1,5 +1,5 @@
 {% if notification.device_id %}
-<a href="{{ url_for('device.device', id=notification.device_id) }}" class="list-group-item">
+<a href="{{ url_for('device.device_management', id=notification.device_id) }}" class="list-group-item">
 {% else %}
 <a href="#"" class="list-group-item">
 {% endif %}
