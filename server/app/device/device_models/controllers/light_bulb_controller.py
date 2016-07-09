@@ -1,3 +1,6 @@
+import socket
+
+
 class LightBulbController(object):
     actions = ((False, "Turn On/Off", "turn_on_off"),)
 
@@ -28,4 +31,14 @@ class LightBulbController(object):
             sock.close()
         except:
             return False
+        return True
+
+    def turn_on_off(device):
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            socket.connect((device.get("ip"), device.get("port")))
+            msg = "TURNONOFF:"
+            sock.send(msg.encode())
+        except:
+            False
         return True

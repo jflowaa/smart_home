@@ -8,6 +8,7 @@ class ChooseDeviceForm(Form):
 class LightBulbForm(Form):
     tag = StringField('Identifier Name')
     ip = StringField('IP')
+    port = IntegerField('Port')
     submit = SubmitField("Add")
 
 class MotionSensorForm(Form):

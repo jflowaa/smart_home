@@ -6,7 +6,7 @@ from .device_models import DeviceFactory
 
 
 @device.route("/<id>", methods=["GET", "POST"])
-def device(id):
+def device_management(id):
     context = {}
     context["device"] = database_helper.get_device_by_id(id).__dict__
     context["device_controller"] = create_device(context["device"].get("device_type"))
@@ -22,7 +22,7 @@ def device(id):
             data = request.form.get("data")
             if context["device_controller"].do_action("edit_device_config", context["device"], data):
                 flash("Updated configuration file sent to device", "success")
-                return redirect(url_for(".device", id=id))
+                return redirect(url_for(".device_management", id=id))
             else:
                 flash("Error! Something went wrong!", "danger")
         elif action == "device_modify":
@@ -31,7 +31,7 @@ def device(id):
             tag = request.form.get("device_tag")
             if database_helper.modify_device_infomation(id, ip, port, tag):
                 flash("Updated device infomation!", "success")
-                return redirect(url_for(".device", id=id))
+                return redirect(url_for(".device_management", id=id))
             else:
                 flash("Error! Something went wrong!", "danger")
         else:

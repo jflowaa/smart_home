@@ -1,3 +1,5 @@
+import socket
+
 class TempSensorController(object):
     actions = ((False, "Get Temperature", "get_temp"),)
 
