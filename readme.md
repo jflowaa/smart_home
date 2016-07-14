@@ -58,6 +58,7 @@ To manage the device:
 - From this page you will be able to manage many aspects of the device
 
 ### Todo
+- [ ] Add a new page in the nav bar that discribes how to add and control a device
 - [ ] Make device types more dynamic and less hard coded
 - [x] Add/remove devices to server
 - [ ] Control devices from server
