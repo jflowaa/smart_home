@@ -148,5 +148,12 @@
 	$(".action").on("click", function(e) {
 		$("#" + e.target.id + "_modal").modal("show");
 	});
+	$(".do-action").on("click", function(e) {
+		console.log("/api/device/{{ device.get('id') }}/action/" + e.target.id);
+		$.ajax({
+			type: "GET",
+			url: "/api/device/{{ device.get('id') }}/action/" + e.target.id
+		});
+	});
 </script>
 {% endblock %}

@@ -27,7 +27,7 @@ class LightBulb(DeviceFactory):
 
     def do_action(self, action, device, kwargs=None):        
         from .controllers import LightBulbController
-        return LightBulbController.do_action(action, device)
+        return LightBulbController.do_action(action, device, kwargs)
 
 class TempSensor(DeviceFactory):
 
@@ -37,4 +37,4 @@ class TempSensor(DeviceFactory):
 
     def do_action(self, action, device, kwargs=None):        
         from .controllers import TempSensorController
-        return TempSensorController.do_action(action, device)
+        return TempSensorController.do_action(action, device, kwargs)

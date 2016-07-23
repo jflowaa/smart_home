@@ -19,11 +19,17 @@ class FluxLightControl():
         self.commands = {
                 "on":  bytearray([0x71, 0x23, 0x0F]),
                 "off": bytearray([0x71, 0x24, 0x0F]),
+                "on_off": bytearray([0x71, 0x22, 0x0F]),
                 "status": bytearray([0x81, 0x8A, 0x8B])
                 }
         self.status = None
         self.poll()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *err):
+        self.sock.close()
 
     def send(self, command):
         """
@@ -63,6 +69,12 @@ class FluxLightControl():
     def turn_off(self):
         self.send(self.commands.get("off"))
         self.status = "Off"
+
+    def turn_on_off(self):
+        print("turn on off")
+        self.send(self.commands.get("on_off"))
+        self.poll
+        return self.status
     
     def change_color(self, r, g, b):
         """

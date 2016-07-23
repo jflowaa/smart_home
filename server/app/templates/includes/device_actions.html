@@ -2,7 +2,7 @@
 	<ul class="list-group">
 	{% for action in device_controller.get_actions() %}
 		<li class="list-group-item">
-			<p> {{ action[1] }} <span class="pull-right"><a class="btn btn-default" href="#">Go</a></span></p>
+			<p> {{ action[1] }} <span class="pull-right"><a id="{{ action[2] }}" class="btn btn-default do-action" href="#">Go</a></span></p>
 		</li>
 		{% if action[0] %}
 			<div id="{{ action[2] }}_modal" class="modal fade" role="dialog">

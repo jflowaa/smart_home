@@ -2,14 +2,14 @@ from flask import render_template, url_for, flash, redirect
 from .. import database_helper
 from . import device
 from flask import request
-from .device_models import DeviceFactory
+from ..device_models import DeviceFactory
 
 
 @device.route("/<id>", methods=["GET", "POST"])
 def device_management(id):
     context = {}
     context["device"] = database_helper.get_device_by_id(id).__dict__
-    context["device_controller"] = create_device(context["device"].get("device_type"))
+    context["device_controller"] = DeviceFactory.factory(context["device"].get("device_type"))
     context["config"] = context["device_controller"].do_action("get_device_config", context["device"])
     if request.method == "POST":
         action = request.form.get("action")
@@ -44,6 +44,3 @@ def device_management(id):
     if context["device"].get("device_type") == "MotionSensor":
         context["notifications"] = database_helper.get_notifications_for_device(id, 10)
     return render_template("device.html", **context)
-
-def create_device(device_type):
-    return DeviceFactory.factory(device_type)

@@ -8,7 +8,6 @@ from flux_light import FluxLightControl
 config = configparser.ConfigParser()
 config.read("config.ini")
 
-
 class ServerHandler(socketserver.BaseRequestHandler):
 
     def handle(self):
@@ -26,8 +25,9 @@ class ServerHandler(socketserver.BaseRequestHandler):
         elif data[0] == "GET":
             with open("config.ini", "rb") as reader:
                 self.request.sendall(reader.read())
-        else:
-            config[data[0]][data[1]] = data[2]
+        elif data[0] == "TURNONOFF":
+            with FluxLightControl(config["DEVICE"]["BulbIP"], int(config["DEVICE"]["BulbPort"])) as bulb:
+                print(bulb.turn_on_off())
 
 def run_listener():
     port = int(config["DEVICE"]["Port"])
