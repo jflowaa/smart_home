@@ -1,4 +1,3 @@
-import os
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
@@ -7,6 +6,7 @@ from config import config
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
+
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -22,6 +22,3 @@ def create_app(config_name):
     app.register_blueprint(api_blueprint, url_prefix="/api")
     print(app.url_map)
     return app
-
-if __name__ == '__main__':
-    manager.run()

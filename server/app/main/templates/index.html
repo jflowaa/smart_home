@@ -15,11 +15,9 @@
 	            <div class="panel-heading">
 	                <i class="fa fa-bar-chart-o fa-fw"></i> Temperatures                
 	            </div>
-	            <!-- /.panel-heading -->
 	            <div class="panel-body">
 	            	{{ chart.render()|safe}}
 	            </div>
-	            <!-- /.panel-body -->
 	        </div>
 		</div>
 		<div class="col-lg-4">
@@ -27,17 +25,14 @@
                 <div class="panel-heading">
                     <i class="fa fa-bell fa-fw"></i> Notifications Panel
                 </div>
-                <!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="list-group">
                     	{% for notification in notifications %}
                         	{% include "includes/notification.html" %}
                         {% endfor %}
                     </div>
-                    <!-- /.list-group -->
                     <a href="/log" class="btn btn-default btn-block">View All Alerts</a>
                 </div>
-                <!-- /.panel-body -->
             </div>
 		</div>
 	</div>

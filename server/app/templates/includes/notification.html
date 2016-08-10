@@ -1,9 +1,9 @@
 {% if notification.device_id %}
-<a href="{{ url_for('device.device_management', id=notification.device_id) }}" class="list-group-item">
+<a href="{{ url_for('device.device_management', device_id=notification.device_id) }}" class="list-group-item">
 {% else %}
-<a href="#"" class="list-group-item">
+<a href="#" class="list-group-item">
 {% endif %}
  	<i class="fa fa-comment fa-fw"></i> {{ notification.message }}
     <span class="pull-right text-muted small"><em>{{ notification.timestamp.strftime("%y-%b-%d %I:%M%p") }}</em>
     </span>
-</a> 
+</a>

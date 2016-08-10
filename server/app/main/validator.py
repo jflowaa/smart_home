@@ -1,9 +1,10 @@
 import re
 
 
-class Validator():
+class Validator:
 
-    def validate_tag(self, tag):
+    @staticmethod
+    def validate_tag(tag):
         if re.match(r"^[A-z0-9][A-z0-9_\-\s]{1,24}$", tag):
             return ""
         else:
@@ -11,13 +12,15 @@ class Validator():
              1 to 25 characters.\
              Must start with A-z or 0-9."
 
-    def validate_ip(self, ip):
+    @staticmethod
+    def validate_ip(ip):
         if re.match(r"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$", ip):
             return ""
         else:
             return "Not a valid IP"
 
-    def validate_port(self, port):
+    @staticmethod
+    def validate_port(port):
         if re.match(r"^\d{1,5}$", port):
             return ""
         else:

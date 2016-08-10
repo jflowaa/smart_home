@@ -1,5 +1,6 @@
 from . import db
 
+
 class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     device_type = db.Column(db.String(25), nullable=False)

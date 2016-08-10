@@ -46,7 +46,7 @@
 		$("#device").change(function () {
 			$.ajax({
 				type: "GET",
-				url: "removedevice",
+				url: "/removedevice",
 				data: {
 						device: $("#device option:selected").val()
 					  }
@@ -62,7 +62,7 @@
 		$(".remove").on("click", function (e) {
 			$.ajax({
 				type: "POST",
-				url: "removedevice",
+				url: "/removedevice",
 				data: {
 						id: e.target.id
 					  }

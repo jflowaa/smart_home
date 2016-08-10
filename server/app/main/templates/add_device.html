@@ -19,7 +19,7 @@
 			<br>
 			<blockquote class="blockquote">
 				<p class="m-b-0">
-					To add a device you need the following infomation: <br>
+					To add a device you need the following information: <br>
 					<strong>Identifier Name</strong>: This is a unique name for your device so it is easier for you to track. <br>
                 	<strong>IP</strong>: This is the specified IP address of your device (this works best if it has a reserved IP address in your router settings) <br>
                 	<strong>Port</strong>: This is the specified port number your device will be listening on.              
@@ -45,7 +45,7 @@
 		$("#device").change(function () {
 			$.ajax({
 				type: "GET",
-				url: "adddevice",
+				url: "/adddevice",
 				data: {
 						device: $("#device option:selected").val()
 					  }

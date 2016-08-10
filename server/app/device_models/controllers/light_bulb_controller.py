@@ -11,6 +11,7 @@ class LightBulbController(object):
         else:
             return getattr(LightBulbController, action)(device)
 
+    @staticmethod
     def get_device_config(device):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,10 +19,11 @@ class LightBulbController(object):
             msg = "GET:"
             sock.send(msg.encode())
             data = sock.recv(1024)
-        except:
+        except socket.error:
             return "Unable to connect to device!\nIs the proper script running on the system?"
         return data.decode()
 
+    @staticmethod
     def edit_device_config(device, config):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -29,16 +31,17 @@ class LightBulbController(object):
             msg = "CONFIG:{}".format(config)
             sock.send(msg.encode())
             sock.close()
-        except:
+        except socket.error:
             return False
         return True
 
+    @staticmethod
     def turn_on_off(device):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.connect((device.get("ip"), device.get("port")))
             msg = "TURNONOFF:"
             sock.send(msg.encode())
-        except:
-            False
+        except socket.error:
+            return False
         return True

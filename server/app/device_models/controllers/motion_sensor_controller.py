@@ -1,5 +1,6 @@
 import socket
 
+
 class MotionSensorController(object):
     actions = ()
 
@@ -10,6 +11,7 @@ class MotionSensorController(object):
         else:
             return getattr(MotionSensorController, action)(device)
 
+    @staticmethod
     def get_device_config(device):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,10 +19,11 @@ class MotionSensorController(object):
             msg = "GET:"
             sock.send(msg.encode())
             data = sock.recv(1024)
-        except:
+        except socket.error:
             return "Unable to connect to device!\nIs the proper script running on the system?"
         return data.decode()
 
+    @staticmethod
     def edit_device_config(device, config):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -28,6 +31,6 @@ class MotionSensorController(object):
             msg = "CONFIG:{}".format(config)
             sock.send(msg.encode())
             sock.close()
-        except:
+        except socket.error:
             return False
         return True

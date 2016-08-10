@@ -3,7 +3,12 @@ from wtforms import StringField, IntegerField, SubmitField, SelectField
 
 
 class ChooseDeviceForm(Form):
-    device = SelectField("Device", choices=[('LightBulb', 'Light Bulb'), ('TempSensor', 'Temperature Sensor'), ('MotionSensor', 'Motion Sensor')])
+    device = SelectField("Device", choices=[
+        ('LightBulb', 'Light Bulb'),
+        ('TempSensor', 'Temperature Sensor'),
+        ('MotionSensor', 'Motion Sensor')
+    ])
+
 
 class LightBulbForm(Form):
     tag = StringField('Identifier Name')
@@ -11,11 +16,13 @@ class LightBulbForm(Form):
     port = IntegerField('Port')
     submit = SubmitField("Add")
 
+
 class MotionSensorForm(Form):
     tag = StringField('Identifier Name')
     ip = StringField('IP')
     port = IntegerField('Port')
     submit = SubmitField("Add")
+
 
 class TemperatureDeviceForm(Form):
     tag = StringField('Identifier Name')

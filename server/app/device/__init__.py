@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-device = Blueprint('device', __name__)
+device = Blueprint('device', __name__, template_folder="templates")
 
 from . import views
