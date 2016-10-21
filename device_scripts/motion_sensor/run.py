@@ -2,6 +2,8 @@ import socketserver
 import urllib.request
 import configparser
 import time
+import sys
+import threading
 
 
 config = configparser.ConfigParser()
@@ -35,8 +37,10 @@ def send_motion_event():
         return "Error: ID is not set! Configure at device management page."
     server_ip = config["SERVER"]["ServerIP"]
     server_port = config["SERVER"]["ServerPort"]
-    r = urllib.request.urlopen("http://{}:{}/api/motion/{}".format(server_ip, server_port, id))
-    return "yes"
+    r = urllib.request.urlopen(
+        "http://{}:{}/api/motion/{}".format(server_ip, server_port, id))
+    return "Sent"
+
 
 def run_listener():
     port = int(config["DEVICE"]["Port"])
@@ -49,7 +53,7 @@ def run_detector():
     model = config["DEVICE"]["Model"]
     pin = config["DEVICE"]["GPIOPin"]
     delay = int(config["DEVICE"]["NotifyRate"])
-    if model == "pi":    
+    if model == "pi":
         import RPi.GPIO as io
         io.setmode(io.BCM)
         io.setup(int(pin), io.IN)
@@ -58,7 +62,7 @@ def run_detector():
                 send_motion_event()
                 time.sleep(delay * 60)
             time.sleep(1)
-    elif model == "beaglebone":
+    elif model == "bone":
         from Adafruit_BBIO import GPIO
         GPIO.setup(pin, GPIO.IN)
         GPIO.add_event_detect(pin, GPIO.RISING)
@@ -69,5 +73,15 @@ def run_detector():
             time.sleep(1)
 
 if __name__ == "__main__":
-    run_listener()
-    # run_detector()
+    try:
+        t1 = threading.Thread(target=run_listener)
+        t2 = threading.Thread(target=run_detector)
+        t1.daemon = True
+        t2.daemon = True
+        t1.start()
+        t2.start()
+        t1.join()
+        t2.join()
+    except KeyboardInterrupt:
+        print("\nClosing...")
+        sys.exit(0)

@@ -1,12 +1,13 @@
 import socketserver
-import urllib.request
 import configparser
-import time
 from flux_light import FluxLightControl
+import sys
+import threading
 
 
 config = configparser.ConfigParser()
 config.read("config.ini")
+
 
 class ServerHandler(socketserver.BaseRequestHandler):
 
@@ -28,6 +29,13 @@ class ServerHandler(socketserver.BaseRequestHandler):
         elif data[0] == "TURNONOFF":
             with FluxLightControl(config["DEVICE"]["BulbIP"], int(config["DEVICE"]["BulbPort"])) as bulb:
                 print(bulb.turn_on_off())
+        elif data[0] == "TURNON":
+            with FluxLightControl(config["DEVICE"]["BulbIP"], int(config["DEVICE"]["BulbPort"])) as bulb:
+                print(bulb.turn_on())
+        elif data[0] == "TURNOFF":
+            with FluxLightControl(config["DEVICE"]["BulbIP"], int(config["DEVICE"]["BulbPort"])) as bulb:
+                print(bulb.turn_off())
+
 
 def run_listener():
     port = int(config["DEVICE"]["Port"])
@@ -36,4 +44,11 @@ def run_listener():
     sock.serve_forever()
 
 if __name__ == "__main__":
-    run_listener()
+    try:
+        t1 = threading.Thread(target=run_listener)
+        t1.daemon = True
+        t1.start()
+        t1.join()
+    except KeyboardInterrupt:
+        print("\nClosing...")
+        sys.exit(0)
