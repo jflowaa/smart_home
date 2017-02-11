@@ -5,4 +5,5 @@
 *.log
 tags
 *.db
-*/static/libs/
+server/web/static/libs/
+.webassets-cache
