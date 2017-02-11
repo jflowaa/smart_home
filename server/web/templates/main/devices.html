@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Devices{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8">
+			<div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-gears fa-fw"></i> Devices
+	                <div class="pull-right">
+	                    <div class="btn-group">
+	                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+	                            Sort
+	                            <span class="caret"></span>
+	                        </button>
+	                        <ul class="dropdown-menu pull-right" role="menu">
+	                            <li><a id="all" class="sort">All Devices</a>
+	                            </li>
+	                            <li><a id="LightBulb" class="sort">Light Bulbs</a>
+	                            </li>
+	                            <li><a id="MotionSensor" class="sort">Motion Sensors</a>
+	                            </li>
+	                            <li><a id="TempSensor" class="sort">Temperature Sensors</a>
+	                            </li>
+	                        </ul>
+	                    </div>
+	                </div>
+	            </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                    	{% if devices %}
+	                    	{% for device in devices %}
+	                        	{% include "includes/device_item_list.html" %}
+	                        {% endfor %}
+	                    {% else %}
+	                    	{% include "includes/device_item_list.html" %}
+	                    {% endif %}
+                    </div>
+                </div>
+            </div>
+		</div>
+		<div class="col-md-2">
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+	$(function() {
+		$(".sort").on("click", function (e) {
+			if ("{{ sort_type }}" !== e.target.id) {
+				$.ajax({
+					type: "POST",
+					url: "devices",
+					data: {
+							sort_type: e.target.id
+						  }
+				}).done(function(msg) {
+					document.open();
+					document.write(msg);
+					document.close();
+				});
+			}
+		});
+	});
+</script>
+{% endblock %}

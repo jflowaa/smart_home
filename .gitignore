@@ -1,7 +1,7 @@
 *.pyc
-*.sqlite
-*/venv
 */migrations
 */__pycache__
 .idea/
 *.log
+tags
+*.db

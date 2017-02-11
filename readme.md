@@ -1,48 +1,71 @@
-A centralized suite for home automation. Automate and control devices that are added to an embedded system such as a raspberry pi or beaglebone. Supported devices is very limited. This project is very early in development. 
+A centralized suite for home automation. Automate and control devices that are added to an embedded system such as a raspberry pi or beaglebone. Supported devices is very limited. This project is very early in development.
 
-### Features
-- Configure device settings remotely 
+## Features
+- Configure device settings remotely
 - Add a PIR sensor and be notified when motion is detected
 
-### Planned Features
+## Planned Features
 - More supported devices (tmp36, dht11/22, wifi lightbulbs)
 - Bind events. Such as turn on a light when motion is detected
 - Record temperatures and graph the data
 - Control lighting
+- PaaS deploy
 
 ### Supported Devices
 - PIR sensor
 
-### Libraries
-Server is built in Python3 using the Flask web framework and SQLAlchemy. 
+## Libraries
+Server is built in Python3 using the Flask web framework.
 
-### Installation
-##### Server
+## Installation
+#### Server
 Clone the repository
+
 ```bash
 git clone https://github.com/jflowaa/smart_home.git
 ```
-Create a virtual environment. This helps keep the server isolated.
+
+Create a Python virtual environment. This helps keep the server packages isolated.
+The easiest way would be
 ```bash
 cd smart_home/server
-pyvenv venv
+python3 -m venv venv
 ```
-Enter the virtual environment and install the packages.
+Although there are better methods, such as: [pyenv](https://github.com/yyuu/pyenv)
+
+Activate the virtual environment and install the packages
+
 ```bash
 source venv/bin/activate
-pip install -r requriments.txt
+pip install -r requriments/dev.txt
 ```
-Configure the database and run the server
-```bash
-python run.py db init
-python run.py db migrate
-python run.py db upgrade
-python run.py runserver
-```
-Server is now running at: http://0.0.0.0:5000/
 
-##### Devices
-Put the correct `run.py` and `config.ini` onto the embedded system. These files can be found in the `device_scripts/<device_type>` folder. 
+Using [Bower](https://bower.io/) to download the CSS/JS <br>
+*Repo already has them, so this command won't do anything*
+
+```bash
+bower install
+```
+
+Now flask needs to be configured
+```bash
+export FLASK_APP=$(pwd)/run.py
+export FLASK_DEBUG=1
+```
+The above sets the location for flask to get an instance of the app and sets debugging mode.
+
+Configure the database and run the server
+
+```bash
+flask db init
+flask db migrate
+flask db upgrade
+flask db run
+```
+Server is now running at: http://127.0.0.1:5000/
+
+#### Devices
+Put the correct `run.py` and `config.ini` onto the embedded system. These files can be found in the `device_scripts/<device_type>` folder.
 
 *These scripts are written in Python3*
 
@@ -57,7 +80,8 @@ To manage the device:
 - Go to the device management page. This page can be accessed in many ways. Easiest way is going to the http://0.0.0.0:5000/devices page
 - From this page you will be able to manage many aspects of the device
 
-### Todo
+## Todo
+- [ ] Auth for PaaS deploy
 - [ ] Add a new page in the nav bar that discribes how to add and control a device
 - [ ] Make device types more dynamic and less hard coded
 - [x] Add/remove devices to server

@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block page_title %}Remove Device{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="page-header">
+			<h1>Remove Device</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-4">
+			{{ choose_form.device.label }} <br>
+			{{ choose_form.device(class_="form-control")  }}
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-search fa-fw"></i>Device Listing
+				</div>
+				<div class="panel-body">
+					{% if devices %}
+						{% for device in devices %}
+							{% include "includes/device_item_list.html" %}
+						{% endfor %}
+					{% else %}
+						{% include "includes/device_item_list.html" %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+	$(function() {
+		$("#device").change(function () {
+			$.ajax({
+				type: "GET",
+				url: "/removedevice",
+				data: {
+						device: $("#device option:selected").val()
+					  }
+			}).done(function(msg) {
+				document.open();
+				document.write(msg);
+				document.close();
+			});
+		});
+	});
+
+	$(function() {
+		$(".remove").on("click", function (e) {
+			$.ajax({
+				type: "POST",
+				url: "/removedevice",
+				data: {
+						id: e.target.id
+					  }
+			}).done(function(msg) {
+				document.open();
+				document.write(msg);
+				document.close();
+			});
+		});
+	});
+</script>
+{% endblock %}
