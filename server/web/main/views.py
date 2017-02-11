@@ -1,17 +1,17 @@
-from flask import render_template, url_for, flash, redirect, Blueprint
-from .. import database_helper
-from .validator import Validator
-from flask import request
-from .forms import ChooseDeviceForm, LightBulbForm, TemperatureDeviceForm, MotionSensorForm
 import pygal
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 from pygal.style import LightColorizedStyle
+
+from .. import database_helper
+from .forms import ChooseDeviceForm, LightBulbForm, MotionSensorForm, TemperatureDeviceForm
+from .validator import Validator
 
 blueprint = Blueprint("main", __name__)
 
 
 @blueprint.route('/')
 def index():
-    notifications = database_helper.get_last_n_notifications(10)
+    notifications = database_helper.get_last_n_notifications()
     chart = pygal.Line(x_title="Time", y_title="Temperature (F)", fill=True, interpolate="cubic",
                        style=LightColorizedStyle, print_values=True, disable_xml_declaration=True)
     chart.x_labels = ["12:00PM", "12:30PM", "1:00PM", "1:30PM", "2:00PM", "2:30PM", "3:00PM",

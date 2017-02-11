@@ -2,7 +2,8 @@ import socket
 
 
 class LightBulbController(object):
-    actions = ((False, "Turn On/Off", "turn_on_off"),)
+    actions = ((False, "Turn On/Off", "turn_on_off"),
+               (False, "Turn On", "turn_on"))
 
     @staticmethod
     def do_action(action, device, kwargs=None):
@@ -15,7 +16,7 @@ class LightBulbController(object):
     def get_device_config(device):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect((device.get("ip"), device.get("port")))
+            sock.connect((device.ip, device.port))
             msg = "GET:"
             sock.send(msg.encode())
             data = sock.recv(1024)
@@ -27,7 +28,7 @@ class LightBulbController(object):
     def edit_device_config(device, config):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect((device.get("ip"), device.get("port")))
+            sock.connect((device.ip, device.port))
             msg = "CONFIG:{}".format(config)
             sock.send(msg.encode())
             sock.close()
@@ -39,8 +40,19 @@ class LightBulbController(object):
     def turn_on_off(device):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect((device.get("ip"), device.get("port")))
+            sock.connect((device.ip, device.port))
             msg = "TURNONOFF:"
+            sock.send(msg.encode())
+        except socket.error:
+            return False
+        return True
+
+    @staticmethod
+    def turn_on(device):
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.connect((device.ip, device.port))
+            msg = "TURNON:"
             sock.send(msg.encode())
         except socket.error:
             return False

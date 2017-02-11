@@ -30,7 +30,7 @@
 	    		</div>
 	    	</div>
 	    </div>
-	    {% if device.get("device_type") == "MotionSensor" %}
+	    {% if device.device_type == "MotionSensor" %}
 	    	<div class=" col-md-4">
 		    	<div class="panel panel-default">
 		    		<div class="panel-heading">
@@ -108,7 +108,7 @@
 							        		<h4 class="modal-title">Edit Device Configuration</h4>
 							      		</div>
 							     		<div class="modal-body">
-							     			<form id="edit-config-form" action="/device/{{ device.get('id') }}" class="form-group" method="post">
+							     			<form id="edit-config-form" action="/device/{{ device.id }}" class="form-group" method="post">
 							        			<div class="form-group">
 							        				<input type="hidden" name="action" value="edit">
 							        				<textarea name="data" form="edit-config-form" class="form-control" rows="25">{{ config }}</textarea>
@@ -131,16 +131,18 @@
 {{ super() }}
 <script type="text/javascript">
 	$("#remove").on("click", function (e) {
+		console.log("hit");
 		$.ajax({
 				type: "POST",
-				url: "/device/{{ device.get("id") }}",
+				url: "/device/{{ device.id }}",
 				data: {
 						action: "remove",
 						id: e.target.id
-					  }
-			}).done(function() {
-				window.location.href = "{{ url_for('main.index') }}";
-			});
+					  },
+				success: function(e) {
+					window.loaction.replace("{{ url_for('main.index') }}");
+				}
+			})
 	});
 	$("#config").on("click", function (e) {
 		$("#config-modal").modal("show");
@@ -149,10 +151,10 @@
 		$("#" + e.target.id + "_modal").modal("show");
 	});
 	$(".do-action").on("click", function(e) {
-		console.log("/api/device/{{ device.get('id') }}/action/" + e.target.id);
+		console.log("/api/device/{{ device.id }}/action/" + e.target.id);
 		$.ajax({
 			type: "GET",
-			url: "/api/device/{{ device.get('id') }}/action/" + e.target.id
+			url: "/api/device/{{ device.id }}/action/" + e.target.id
 		});
 	});
 </script>

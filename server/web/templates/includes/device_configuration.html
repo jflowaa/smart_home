@@ -1,9 +1,9 @@
 <ul class="list-group">
-	<li class="list-group-item">ID <span class="pull-right">{{ device.get("id") }}</span></li>
-	<li class="list-group-item">Type <span class="pull-right">{{ device.get("device_type") }}</span></li>
-	<li class="list-group-item">IP <span class="pull-right">{{ device.get('ip') }}</span></li>
-	<li class="list-group-item ">Port <span class="pull-right">{{ device.get("port") }}</span></li>
-	<li class="list-group-item">Tag <span class="pull-right">{{ device.get("tag") }}</span></li>
+	<li class="list-group-item">ID <span class="pull-right">{{ device.id }}</span></li>
+	<li class="list-group-item">Type <span class="pull-right">{{ device.device_type }}</span></li>
+	<li class="list-group-item">IP <span class="pull-right">{{ device.ip }}</span></li>
+	<li class="list-group-item ">Port <span class="pull-right">{{ device.port }}</span></li>
+	<li class="list-group-item">Tag <span class="pull-right">{{ device.tag }}</span></li>
 </ul>
 <input type="button" class="form-control btn btn-default" id="device-modify" value="Modify" data-toggle="modal" data-target="#device-modify-modal"/>
 
@@ -15,7 +15,7 @@
         <h4 class="modal-title">Modify Device Information</h4>
       </div>
       <div class="modal-body">
-        <form action="/device/{{ device.get('id') }}" method="post">
+        <form action="/device/{{ device.id }}" method="post">
         	<div class="form-group">
 				<input type="hidden" name="action" value="device_modify" class="form-group">
 				<label class="form-control-label" for="device_ip">IP</label>

@@ -2,7 +2,7 @@
 """The app module, containing the app factory function."""
 from flask import Flask, render_template
 
-from web import commands, api, main, device
+from web import api, commands, device, main
 from web.assets import assets
 from web.extensions import db, debug_toolbar, migrate
 from web.settings import ProdConfig

@@ -1,8 +1,7 @@
-from flask import render_template, url_for, flash, redirect, Blueprint
-from .. import database_helper
-from flask import request
-from web.device_factory import DeviceFactory
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
+from web import database_helper
+from web.device_factory import DeviceFactory
 
 blueprint = Blueprint('device', __name__, url_prefix="/device")
 
@@ -10,7 +9,7 @@ blueprint = Blueprint('device', __name__, url_prefix="/device")
 @blueprint.route("/<device_id>", methods=["GET", "POST"])
 def device_management(device_id):
     device_data = database_helper.get_device_by_id(device_id)
-    device_controller = DeviceFactory.factory(device_data.get("device_type"))
+    device_controller = DeviceFactory.factory(device_data.device_type)
     config = device_controller.do_action("get_device_config", device_data)
     if request.method == "POST":
         action = request.form.get("action")
@@ -42,7 +41,7 @@ def device_management(device_id):
                     flash("Success!", "success")
                 else:
                     flash("Error: something went wrong!", "danger")
-    if device_data.get("device_type") == "MotionSensor":
+    if device_data.device_type == "MotionSensor":
         notifications = database_helper.get_notifications_for_device(device_id, 10)
     else:
         notifications = None
@@ -52,4 +51,9 @@ def device_management(device_id):
         "device_controller": device_controller,
         "notifications": notifications
     }
-    return render_template("device.html", **context)
+    return render_template("device/device.html", **context)
+
+
+@blueprint.route("/manage_device/<action>", methods=["POST"])
+def manage(action):
+    return "yes"

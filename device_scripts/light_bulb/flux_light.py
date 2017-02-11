@@ -70,7 +70,6 @@ class FluxLightControl():
         self.status = "Off"
 
     def turn_on_off(self):
-        print("turn on off")
         self.send(self.commands.get("on_off"))
         self.poll
         return self.status

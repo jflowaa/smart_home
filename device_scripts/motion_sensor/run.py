@@ -32,14 +32,14 @@ class ServerHandler(socketserver.BaseRequestHandler):
 
 
 def send_motion_event():
+    print("Got Motion")
     id = config["DEVICE"]["ID"]
     if not id:
         return "Error: ID is not set! Configure at device management page."
     server_ip = config["SERVER"]["ServerIP"]
     server_port = config["SERVER"]["ServerPort"]
-    r = urllib.request.urlopen(
-        "http://{}:{}/api/motion/{}".format(server_ip, server_port, id))
-    return "Sent"
+    urllib.request.urlopen("http://{}:{}/api/motion/{}".format(server_ip, server_port, id))
+    return None
 
 
 def run_listener():
@@ -71,6 +71,7 @@ def run_detector():
                 send_motion_event()
                 time.sleep(delay * 60)
             time.sleep(1)
+
 
 if __name__ == "__main__":
     try:

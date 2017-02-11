@@ -1,5 +1,5 @@
 from flask_wtf import Form
-from wtforms import StringField, IntegerField, SubmitField, SelectField
+from wtforms import IntegerField, SelectField, StringField, SubmitField
 
 
 class ChooseDeviceForm(Form):

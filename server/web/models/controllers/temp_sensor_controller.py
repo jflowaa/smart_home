@@ -15,7 +15,7 @@ class TempSensorController(object):
     def get_device_config(device):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect((device.get("ip"), device.get("port")))
+            sock.connect((device.ip, device.port))
             msg = "GET:"
             sock.send(msg.encode())
             data = sock.recv(1024)
@@ -27,7 +27,7 @@ class TempSensorController(object):
     def edit_device_config(device, config):
         try:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.connect((device.get("ip"), device.get("port")))
+            sock.connect((device.ip, device.port))
             msg = "CONFIG:{}".format(config)
             sock.send(msg.encode())
             sock.close()

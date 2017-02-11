@@ -13,12 +13,12 @@ class MotionSensor(DeviceFactory):
 
     @staticmethod
     def get_actions():
-        from .controllers import MotionSensorController
+        from web.models.controllers import MotionSensorController
         return MotionSensorController.actions
 
     @staticmethod
     def do_action(action, device, kwargs=None):
-        from .controllers import MotionSensorController
+        from web.models.controllers import MotionSensorController
         return MotionSensorController.do_action(action, device, kwargs)
 
 
@@ -26,12 +26,12 @@ class LightBulb(DeviceFactory):
 
     @staticmethod
     def get_actions():
-        from .controllers import LightBulbController
+        from web.models.controllers import LightBulbController
         return LightBulbController.actions
 
     @staticmethod
     def do_action(action, device, kwargs=None):
-        from .controllers import LightBulbController
+        from web.models.controllers import LightBulbController
         return LightBulbController.do_action(action, device, kwargs)
 
 
@@ -39,10 +39,10 @@ class TempSensor(DeviceFactory):
 
     @staticmethod
     def get_actions():
-        from .controllers import TempSensorController
+        from web.models.controllers import TempSensorController
         return TempSensorController.actions
 
     @staticmethod
     def do_action(action, device, kwargs=None):
-        from .controllers import TempSensorController
+        from web.models.controllers import TempSensorController
         return TempSensorController.do_action(action, device, kwargs)

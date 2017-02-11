@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from web.extensions import db
 from web.models import Device, Notifications
-from datetime import datetime
+
 
 """
 TODO: Return errors, currently returns true even if error.
@@ -39,7 +41,7 @@ def get_notifications():
     return db.session.query(Notifications).order_by(Notifications.id.desc()).all()
 
 
-def get_last_n_notifications(n):
+def get_last_n_notifications(n=10):
     return db.session.query(Notifications).order_by(Notifications.id.desc()).limit(n).all()
 
 
