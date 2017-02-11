@@ -40,9 +40,7 @@ source venv/bin/activate
 pip install -r requriments/dev.txt
 ```
 
-Using [Bower](https://bower.io/) to download the CSS/JS <br>
-*Repo already has them, so this command won't do anything*
-
+Using [Bower](https://bower.io/) to download the used CSS/JS packages
 ```bash
 bower install
 ```
@@ -79,6 +77,13 @@ To manage the device:
 - Add the device on the server by going to http://0.0.0.0:5000/adddevice
 - Go to the device management page. This page can be accessed in many ways. Easiest way is going to the http://0.0.0.0:5000/devices page
 - From this page you will be able to manage many aspects of the device
+
+## Misc
+If you make changes to the CSS/JS and want to recompress them for production then run
+```bash
+flask assets clean
+flask assets build
+```
 
 ## Todo
 - [ ] Auth for PaaS deploy
