@@ -1,25 +1,35 @@
-{% if device.device_type == "LightBulb  !" %}
-{% elif device.device_type == "MotionSensor  !" %}
-{% elif device.device_type == "TempSensor  !" %}
-{% else %}
-<ul class="list-group">
-<li class="list-group-item">
-		<a href="#" data-toggle="tooltip" title="placeholder"><i class="fa fa-question fa-fw"></i></a>
-		Device Type
-		<span class="pull-right">dropdown of devices
-		<a href="#">Create</a></span></span>
-	</li>
-	<li class="list-group-item">
-		<a href="#" data-toggle="tooltip" title="Bind motion sensors to the light bulb to trigger light events from motion events"><i class="fa fa-question fa-fw"></i></a>
-		Motion Sensor
-		<span class="pull-right">tag name of sensor
-		<a href="#">Create</a></span>
-	</li>
-	<li class="list-group-item">
-		<a href="#" data-toggle="tooltip" title="placeholder"><i class="fa fa-question fa-fw"></i></a>
-		Create goes to a modal window with a form
-		<span class="pull-right">
-		<a href="#">Create</a></span>
-	</li>
-</ul>
-{% endif %}
+<!-- Button trigger modal -->
+<span>
+    <p>
+       Creating a device binding will allow you to have an action fire when an event happens.
+        For example an event could be motion detected, so turn on a light
+    </p>
+    <button id="create-binding-button" type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#create-binding-model">
+    Create a Binding
+    </button>
+</span>
+
+<!-- Modal -->
+<div class="modal fade" id="create-binding-model">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                <h5 class="modal-title">Create Device Binding</h5>
+            </div>
+            <div class="modal-body">
+                <form id="create-device-binding-form" action="{{ url_for('device.add_event_binding') }}" method="POST">
+                    {{ create_device_binding_form.hidden_tag() }}
+                    {{ create_device_binding_form.event_to_monitor.label }}: {{ create_device_binding_form.event_to_monitor(class_="form-control") }}
+                    {{ create_device_binding_form.target_device.label }}: {{ create_device_binding_form.target_device(class_="form-control") }}
+                    {{ create_device_binding_form.target_actions.label }}: {{ create_device_binding_form.target_actions(class_="form-control") }}
+                    {{ create_device_binding_form.tag.label }}: {{ create_device_binding_form.tag(class_="form-control") }}
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Create</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

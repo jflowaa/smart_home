@@ -3,6 +3,7 @@ import socket
 
 class MotionSensorController(object):
     actions = ()
+    events = [("motion", "On Motion Event")]
 
     @staticmethod
     def do_action(action, device, kwargs=None):

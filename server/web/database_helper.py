@@ -1,7 +1,8 @@
 from datetime import datetime
 
+from web.device_factory import DeviceFactory
 from web.extensions import db
-from web.models import Device, Notifications
+from web.models import Device, Notifications, Event
 
 
 """
@@ -61,6 +62,10 @@ def get_device_by_id(device_id):
     return db.session.query(Device).get(device_id)
 
 
+def get_all_devices_except_id(device_id):
+    return db.session.query(Device).filter(Device.id != device_id).all()
+
+
 def get_all_devices():
     return db.session.query(Device).all()
 
@@ -84,3 +89,20 @@ def add_motion_event(device_id):
     db.session.add(notification)
     db.session.commit()
     return True
+
+
+def get_actions_by_device_id(device_id):
+    device = db.session.query(Device).get(device_id)
+    device_controller = DeviceFactory.factory(device.device_type)
+    return device_controller.actions
+
+
+def create_device_binding(event_binding):
+    event = Event()
+    event.device_id = event_binding.get("device_id")
+    event.tag = event_binding.get("tag")
+    event.target_action = event_binding.get("target_action")
+    event.target_device_id = event_binding.get("target_device")
+    db.session.add(event)
+    db.session.commit()
+    return "not tested"

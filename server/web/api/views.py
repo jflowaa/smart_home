@@ -36,3 +36,9 @@ def device_notifications():
         }
         data.append(d)
     return jsonify({"success": True, "data": data})
+
+
+@blueprint.route("/device/actions/<device_id>")
+def get_device_actions(device_id):
+    actions = database_helper.get_actions_by_device_id(device_id)
+    return jsonify({"success": True, "data": actions})

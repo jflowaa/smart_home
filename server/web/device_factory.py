@@ -10,6 +10,8 @@ class DeviceFactory(object):
 
 
 class MotionSensor(DeviceFactory):
+    actions = ()
+    events = [("motion", "On Motion Event")]
 
     @staticmethod
     def get_actions():
@@ -23,6 +25,11 @@ class MotionSensor(DeviceFactory):
 
 
 class LightBulb(DeviceFactory):
+    actions = [
+        ("turn_on", "Turn On"),
+        ("turn_off", "Turn Off"),
+        ("turn_on_off", "Turn On/Off")
+    ]
 
     @staticmethod
     def get_actions():
